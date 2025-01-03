@@ -1,0 +1,11 @@
+masscan:
+  max-rate: 1000000
+  excludeconfPath: schedules/masscan_config/exclude.conf
+postgresql:
+  host: localhost
+  port: 5432
+  user: serverseeker_reborn_user
+  password: serverseeker_reborn_password
+  database: serverseeker_reborn
+
+  
