@@ -12,4 +12,4 @@ COPY . /app
 RUN python - m pipenv lock -r > deploy-requirements.txt --system --deploy --ignore-pipfile && \
     pip install --no-cache-dir -r deploy-requirements.txt
 
-CMD ["python", "lib/checkdep.py" ]
+ENTRYPOINT ["python", "entrypoint.py" ]
