@@ -21,4 +21,4 @@ RUN jq -r '.default \
         Pipfile.lock > requirements.txt 
 RUN    pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "test.py" ]
+ENTRYPOINT ["python", "entrypoint.py" ]
