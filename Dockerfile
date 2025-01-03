@@ -1,15 +1,24 @@
-FROM python:3.12.5-alpine3.20
+FROM python:3.12.8-alpine3.21
 
 RUN apk add --no-cache \
     bash \
     curl \
     git \
-    masscan
+    masscan \
+    jq \
+    libpcap \
+    libpcap-dev 
     
 WORKDIR /app
 COPY . /app
+COPY Pipfile /app/Pipfile
+COPY Pipfile.lock /app/Pipfile.lock
 
-RUN python - m pipenv lock -r > deploy-requirements.txt --system --deploy --ignore-pipfile && \
-    pip install --no-cache-dir -r deploy-requirements.txt
+RUN python -m pip install --upgrade pip
+RUN jq -r '.default \
+        | to_entries[] \
+        | .key + .value.version' \
+        Pipfile.lock > requirements.txt 
+RUN    pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "entrypoint.py" ]
+ENTRYPOINT ["python", "test.py" ]
