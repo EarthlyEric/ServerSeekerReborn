@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 pyyaml = "*"
 mcstatus = "*"
+python-masscan = "*"
+celery = "*"
 
 [dev-packages]
 
