@@ -16,4 +16,3 @@ class massScannerOutputParser:
                 IPs.append(line.strip().split(' ',4)[3])
                 
         return IPs
-    
