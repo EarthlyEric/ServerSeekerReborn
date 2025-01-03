@@ -1,17 +1,31 @@
-import masscan
-from lib.task import tasksys
+import os
+import subprocess
+from entrypoint import conf
 
-@tasksys.task
-def masscan_cron():
-    mas = masscan.PortScanner()
+def masscanTask():
+    if not os.path.exists('schedules/cache'):
+        os.makedirs('schedules/cache')
     
-    rate = 100000
-    excludefilePath = 'cronjob/exclude.txt'
+    args=[
+        'masscan',
+        '-p25565',
+        '0.0.0.0/0',
+        '--max-rate',
+        str(conf.masscan["max-rate"]),
+        '--exclude-file',
+        str(conf.masscan["excludefilePath"]),
+        '-oL',
+        'schedules/cache/masscan_output.txt',
+    ]
+
+    masscan = subprocess.Popen(
+        bufsize=1000,
+        args=args,
+        stdout=subprocess.PIPE
+        )
     
-    mas.scan(hosts='0.0.0.0/0',
-            ports='25565',
-            arguments=f'--max-rate'
-            )
+    return masscan
+    
     
     
     
