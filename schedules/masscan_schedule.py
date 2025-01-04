@@ -1,7 +1,12 @@
 import os
 import subprocess
-from entrypoint import conf
+from tasks import tasksys
+from lib import config
+from lib import utils
 
+conf = config.Config()
+
+@tasksys.task()
 def masscanTask():
     if not os.path.exists('schedules/cache'):
         os.makedirs('schedules/cache')
@@ -23,8 +28,12 @@ def masscanTask():
         args=args,
         stdout=subprocess.PIPE
         )
+    for line in masscan.stdout:
+        print(line.decode())
+        
+    IPs = utils.parseMasscanOutput('schedules/cache/masscan_output.txt')
     
-    return masscan
+        
     
     
     
