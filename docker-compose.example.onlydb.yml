@@ -1,25 +1,13 @@
 version: '3'
 services:
-  ssreborn-core:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: serverseeker-reborn-core
-    restart: always
-    depends_on:
-      - database
   database:
     image: postgres
     container_name: ssreborn-db
     restart: always
-    ports:
-      - 5432:5432
     environment:
       POSTGRES_USER: ssreborn_user
       POSTGRES_PASSWORD: ssreborn_password
       POSTGRES_DB: ssreborn_db
-    networks:
-      - ssreborn-network
   adminer:
     image: adminer
     container_name: ssreborn-adminer
