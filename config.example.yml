@@ -4,8 +4,8 @@ masscan:
 postgresql:
   host: localhost
   port: 5432
-  user: serverseeker_reborn_user
-  password: serverseeker_reborn_password
-  database: serverseeker_reborn
+  user: ssreborn_user
+  password: ssreborn_password
+  database: ssreborn_db
 
   
