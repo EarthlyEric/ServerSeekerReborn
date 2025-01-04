@@ -1,1 +1,1 @@
-docker build -t serverseek-reborn-core . --no-cache
+docker build -t ssreborn-core . --no-cache
