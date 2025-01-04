@@ -7,6 +7,8 @@ name = "pypi"
 pyyaml = "*"
 mcstatus = "*"
 celery = "*"
+pyfiglet = "*"
+psycopg = {extras = ["binary", "pool"] }
 
 [dev-packages]
 
