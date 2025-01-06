@@ -1,10 +1,15 @@
+import logging
 from celery import Celery
 from celery.schedules import crontab
 from lib import config
 
 conf = config.Config()
-tasksys = Celery('tasks')
+
+tasksys = Celery('tasks',)
 tasksys.conf.timezone = 'UTC'
+tasksys.conf.broker_url = f"amqp://{conf.rabbitmq['user']}:{conf.rabbitmq['password']}@{conf.rabbitmq['host']}:{conf.rabbitmq['port']}/"
+
+logger = logging.getLogger("tasksys")
 
 tasksys.conf.beat_schedule = {
     "masscan-task": {
@@ -13,6 +18,6 @@ tasksys.conf.beat_schedule = {
     },
     "monitor-task": {
         "task": "schedules.monitor_schedule.monitorTask",
-        "schedule": crontab(minute=15)
+        "schedule": crontab(minute='15,30,45'),
     },
 }
