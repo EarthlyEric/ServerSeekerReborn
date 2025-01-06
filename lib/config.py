@@ -14,6 +14,7 @@ class Config:
             
         self.masscan = self.config['masscan']
         self.postgresql = self.config['postgresql']
+        self.rabbitmq = self.config['rabbitmq']
         
     
     def genDefultConfig(self):
@@ -23,11 +24,17 @@ class Config:
                 "excludefilePath": "schedules/masscan_config/exclude.conf",   
             },
             "postgresql":{
-                "host": "localhost",
+                "host": "172.20.0.3",
                 "port": 5432,
                 "user": "ssreborn_user",
                 "password": "ssreborn_password",
                 "database": "ssreborn_db"
+            },
+            "rabbitmq":{
+                "host": "172.20.0.4",
+                "port": 5672,
+                "user": "ssreborn_user",
+                "password": "ssreborn_password",
             }
         }
         dump = yaml.dump(configStructure)
