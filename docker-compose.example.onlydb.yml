@@ -1,23 +1,55 @@
-version: '3'
 services:
   database:
     image: postgres
     container_name: ssreborn-db
     restart: always
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_USER: ssreborn_user
       POSTGRES_PASSWORD: ssreborn_password
       POSTGRES_DB: ssreborn_db
+    networks:
+      ssreborn-network:
+        ipv4_address: 172.20.0.3
+        
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ssreborn-rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ssreborn_user
+      RABBITMQ_DEFAULT_PASS: ssreborn_password
+    networks:
+      ssreborn-network:
+        ipv4_address: 172.20.0.4
+
   adminer:
     image: adminer
     container_name: ssreborn-adminer
     restart: always
     ports:
       - 8080:8080
-    networks:
-      - ssreborn-network
     depends_on:
       - database
+    networks:
+      ssreborn-network:
+        ipv4_address: 172.20.0.5
+      ssreborn-external-network: {}
+
 networks:
   ssreborn-network:
+    ipam:
+     config:
+       - subnet: 172.20.0.0/16
+         gateway: 172.20.0.1
+  ssreborn-external-network:
     external: true
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+          gateway: 172.21.0.1
+    
