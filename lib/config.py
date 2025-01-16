@@ -14,7 +14,13 @@ class Config:
             
         self.masscan = self.config['masscan']
         self.postgresql = self.config['postgresql']
-        self.rabbitmq = self.config['rabbitmq']
+        self.redis = self.config['redis']
+        
+        if os.getenv('SSREBORN_DB_HOST') is not None:
+            self.postgresql['host'] = os.environ('SSREBORN_DB_HOST')
+            
+        if os.getenv('SSREBORN_REDIS_HOST')is not None:
+            self.redis['host'] = os.environ('SSREBORN_REDIS_HOST')
         
     
     def genDefultConfig(self):
@@ -24,17 +30,15 @@ class Config:
                 "excludefilePath": "schedules/masscan_config/exclude.conf",   
             },
             "postgresql":{
-                "host": "172.20.0.3",
+                "host": "localhost",
                 "port": 5432,
                 "user": "ssreborn_user",
                 "password": "ssreborn_password",
                 "database": "ssreborn_db"
             },
-            "rabbitmq":{
-                "host": "172.20.0.4",
+            "redis":{
+                "host": "localhost",
                 "port": 5672,
-                "user": "ssreborn_user",
-                "password": "ssreborn_password",
             }
         }
         dump = yaml.dump(configStructure)
