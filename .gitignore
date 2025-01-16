@@ -174,3 +174,5 @@ test.py
 *.bak
 *.dat
 *.dir
+ssreborn-redis-data/*
+ssreborn-db-data/*
