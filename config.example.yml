@@ -2,16 +2,14 @@ masscan:
   max-rate: 1000000
   excludeconfPath: schedules/masscan_config/exclude.conf
 postgresql:
-  host: 172.20.0.3
+  host: localhost
   port: 5432
   user: ssreborn_user
   password: ssreborn_password
   database: ssreborn_db
-rabbitmq:
-  host: 172.20.0.4
-  port: 5672
-  user: ssreborn_user
-  password: ssreborn_password
+redis:
+  host: localhost
+  port: 6379
 
 
   
