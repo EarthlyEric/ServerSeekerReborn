@@ -7,7 +7,7 @@ conf = config.Config()
 
 tasksys = Celery('tasks',)
 tasksys.conf.timezone = 'UTC'
-tasksys.conf.broker_url = f"amqp://{conf.rabbitmq['user']}:{conf.rabbitmq['password']}@{conf.rabbitmq['host']}:{conf.rabbitmq['port']}/"
+tasksys.conf.broker_url = f"redis://{conf.redis['host']}:{conf.redis['port']}/0"
 
 logger = logging.getLogger("tasksys")
 
