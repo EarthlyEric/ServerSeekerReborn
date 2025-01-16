@@ -1,18 +1,4 @@
 services:
-  ssreborn-core:
-    image: ssreborn-core
-    container_name: serverseeker-reborn-core
-    restart: always
-    environment:
-      - SSREBORN_DB_HOST=172.20.0.3
-      - SSREBORN_REDIS_HOST=172.20.0.4
-    depends_on:
-      - database
-      - redis
-    networks:
-      ssreborn-network:
-        ipv4_address: 172.20.0.2
-
   database:
     image: postgres
     container_name: ssreborn-db
@@ -28,6 +14,7 @@ services:
     networks:
       ssreborn-network:
         ipv4_address: 172.20.0.3
+      ssreborn-external-network: {}
         
   redis:
     image: redis:latest
@@ -40,6 +27,7 @@ services:
     networks:
       ssreborn-network:
         ipv4_address: 172.20.0.4
+      ssreborn-external-network: {}
 
   adminer:
     image: adminer
@@ -47,12 +35,6 @@ services:
     restart: always
     ports:
       - 8080:8080
-    environment:
-      - ADMINER_DEFAULT_DB_DRIVER=pgsql
-      - ADMINER_DEFAULT_DB_HOST=172.20.0.3
-      - ADMINER_DEFAULT_DB_NAME=ssreborn_db
-      - ADMINER_DEFAULT_DB_USERNAME=ssreborn_user
-      - ADMINER_DEFAULT_DB_PASSWORD=ssreborn_password
     depends_on:
       - database
     networks:

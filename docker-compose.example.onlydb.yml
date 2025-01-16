@@ -9,20 +9,20 @@ services:
       POSTGRES_USER: ssreborn_user
       POSTGRES_PASSWORD: ssreborn_password
       POSTGRES_DB: ssreborn_db
+    volumes:
+      - ./ssreborn-db-data:/var/lib/postgresql/data
     networks:
       ssreborn-network:
         ipv4_address: 172.20.0.3
         
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: ssreborn-rabbitmq
+  redis:
+    image: redis:latest
+    container_name: ssreborn-redis
     restart: always
     ports:
-      - 5672:5672
-      - 15672:15672
-    environment:
-      RABBITMQ_DEFAULT_USER: ssreborn_user
-      RABBITMQ_DEFAULT_PASS: ssreborn_password
+      - 6379:6379
+    volumes:
+      - ./ssreborn-redis-data:/data
     networks:
       ssreborn-network:
         ipv4_address: 172.20.0.4
